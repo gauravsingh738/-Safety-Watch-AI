@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Login — Safety Watch AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
+    <script src="config.js"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-4">
+  <div class="max-w-md w-full p-8 bg-gray-900/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
+    <h1 class="text-3xl font-black mb-2 text-center text-blue-500 uppercase italic tracking-tighter">Safety Watch AI</h1>
+    <p class="text-xs text-gray-500 text-center mb-8 uppercase tracking-widest font-bold">Secure Access Portal</p>
+    <input id="email" type="email" placeholder="Email" class="w-full p-4 mb-3 rounded-xl bg-gray-800 border border-transparent focus:border-blue-500 outline-none transition" />
+    <input id="password" type="password" placeholder="Password" class="w-full p-4 mb-6 rounded-xl bg-gray-800 border border-transparent focus:border-blue-500 outline-none transition" />
+    <button id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 p-4 rounded-xl font-black uppercase transition-all transform active:scale-95 shadow-lg shadow-blue-900/40">Enter Dashboard</button>
+    <p class="mt-6 text-sm text-center text-gray-500">New user? <a href="register.html" class="text-blue-400 underline">Create Account</a></p>
+    <p id="msg" class="mt-4 text-xs text-center text-red-400"></p>
+  </div>
+<script>
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+document.getElementById('loginBtn').onclick = async () => {
+    try {
+        await auth.signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('password').value);
+        window.location.href = 'main.html';
+    } catch (e) { document.getElementById('msg').innerText = e.message; }
+};
+</script>
+</body>
+</html>
